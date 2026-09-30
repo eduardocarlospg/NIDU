@@ -12,7 +12,9 @@
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
 </head>
-<body>
+<body class="locked">
+<div class="auth"><div class="auth-box"><div class="brand">NIDU</div><p id="authTitle">Entre para acessar seu painel.</p>
+<form id="authForm"><label class="reg-only" hidden>Nome<input id="authName" autocomplete="name"></label><label>E-mail<input type="email" id="authEmail" required autocomplete="username"></label><label>Senha<input type="password" id="authPass" required minlength="8" autocomplete="current-password"></label><label class="reg-only" hidden>Código de convite (se houver)<input id="authCode"></label><p class="auth-error" id="authError"></p><button class="btn btn-primary" id="authSubmit">Entrar</button><button type="button" class="auth-link" id="authToggle">Criar uma conta</button></form></div></div>
 <div class="app">
     <aside class="sidebar" id="sidebar">
       <div class="brand">NIDU</div>
@@ -44,7 +46,7 @@
       <section class="view active" id="view-dashboard">
         <div class="period-bar">
           <label>Período <select id="periodSelect"><option value="month">Este mês</option><option value="quarter">Este trimestre</option><option value="year">Este ano</option><option value="all">Todos</option></select></label>
-          <span id="lastSync">Dados locais</span>
+          <span id="lastSync">—</span>
         </div>
         <div class="cards">
           <div class="card metric"><div class="metric-icon green">↗</div><div><span>Faturamento</span><strong id="kpiRevenue">R$ 0,00</strong><small id="kpiRevenueSub">Receitas no período</small></div></div>
@@ -91,8 +93,8 @@
       </section>
 
       <section class="view" id="view-config">
-        <div class="section-tools"><div><h2>Configurações</h2><p>Conecte seu Google Sheets e personalize o sistema.</p></div></div>
-        <div class="card settings"><h3>Google Sheets / Apps Script</h3><p>Depois de publicar o arquivo <b>google-apps-script.gs</b> como aplicativo web, cole aqui a URL.</p><label>URL do Web App<input id="apiUrl" placeholder="https://script.google.com/macros/s/AKfycbz4ZT9lfN9cOfOleR0QYVDIuiHFKXxoqv_ZjvRexGEiyhe7iP0hnMooK6lu647okn1R/exec"></label><div class="settings-actions"><button class="btn btn-primary" id="saveConfig">Salvar e testar</button><span id="connectionStatus">Não configurado</span></div><hr><h3>Dados locais</h3><p class="hint">Se a API ainda não estiver configurada, o sistema funciona em modo local neste navegador.</p><button class="btn btn-light" id="clearLocal">Limpar dados locais</button></div>
+        <div class="section-tools"><div><h2>Conta</h2><p>Seus dados ficam salvos na nuvem e só a sua conta tem acesso.</p></div></div>
+        <div class="card settings"><h3>Conta</h3><p>Conectado como <b id="userName"></b></p><div class="settings-actions"><button class="btn btn-light" id="logoutBtn">Sair</button></div></div>
       </section>
     </main>
   </div>
@@ -130,6 +132,7 @@
       </div><div class="modal-actions"><button type="button" class="btn btn-light" id="cancelForecast">Cancelar</button><button class="btn btn-primary">Salvar estimativa</button></div></form>
     </div>
   </div>
+  <div class="loader" id="loader" role="status" aria-live="polite"><div class="loader-bar"></div><div class="loader-pill"><span class="spin"></span><span id="loaderText">Carregando…</span></div></div>
   <script src="app.js"></script>
 </body>
 </html>
